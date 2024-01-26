@@ -1,8 +1,8 @@
-"se client";
+"use client";
 import React, { useState, useEffect } from "react";
 import { useQuery } from "@apollo/client";
 import { useRouter } from "next/navigation";
-import { GET_USER } from "@/app/config/queries";
+import { GET_USER } from "@/src/config/queries";
 import { UserCircleIcon } from "@heroicons/react/24/solid";
 
 const Header = () => {

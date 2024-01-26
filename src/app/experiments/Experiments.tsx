@@ -1,4 +1,4 @@
-import NotAllowed from "@/components/layout/NotAllowed";
+import NotAllowed from "@/src/components/layout/NotAllowed";
 import React from "react";
 
 const Experiments = () => {

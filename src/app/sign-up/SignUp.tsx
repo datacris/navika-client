@@ -4,12 +4,12 @@ import { useRouter } from "next/navigation";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useMutation } from "@apollo/client";
-import { CREATE_NEW_USER } from "@/app/config/queries";
-import InputFormik from "@/components/ui/InputFormik";
-import InputErrorFormik from "@/components/ui/InputErrorFormik";
-import InputButton from "@/components/ui/InputButton";
+import { CREATE_NEW_USER } from "@/src/config/queries";
+import InputFormik from "@/src/components/ui/InputFormik";
+import InputErrorFormik from "@/src/components/ui/InputErrorFormik";
+import InputButton from "@/src/components/ui/InputButton";
 import Link from "next/link";
-import { AlertType, showNotification } from "@/components/layout/Notification";
+import { AlertType, showNotification } from "@/src/components/layout/Notification";
 import Tooltip from "@mui/material/Tooltip";
 
 const SignUp = () => {

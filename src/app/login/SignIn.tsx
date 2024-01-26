@@ -5,11 +5,11 @@ import * as Yup from "yup";
 import { useMutation } from "@apollo/client";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { USER_SIGN_IN } from "@/app/config/queries";
-import InputErrorFormik from "@/components/ui/InputErrorFormik";
-import InputFormik from "@/components/ui/InputFormik";
-import InputButton from "@/components/ui/InputButton";
-import { showNotification, AlertType } from "@/components/layout/Notification";
+import { USER_SIGN_IN } from "@/src/config/queries";
+import InputErrorFormik from "@/src/components/ui/InputErrorFormik";
+import InputFormik from "@/src/components/ui/InputFormik";
+import InputButton from "@/src/components/ui/InputButton";
+import { showNotification, AlertType } from "@/src/components/layout/Notification";
 import { Tooltip } from "@mui/material";
 
 const SignIn = () => {

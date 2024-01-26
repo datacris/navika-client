@@ -3,7 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Layout from "../components/layout/Layout";
 import { ApolloProvider } from "@apollo/client";
-import client from "./config/apollo";
+import client from "../config/apollo";
 import ReduxProvider from "@/src/redux/provider";
 
 const inter = Inter({ subsets: ["latin"] });
