@@ -38,7 +38,7 @@ export const showNotification = async (props: NotificationProps) => {
           autoClose: 500
         });
         resolve();
-      }, 1500)
+      }, 1000)
     );
   }
 

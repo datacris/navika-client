@@ -1,9 +1,13 @@
-import React from 'react'
+import NotAllowed from "@/components/layout/NotAllowed";
+import React from "react";
 
 const Experiments = () => {
   return (
-    <div>Experiments</div>
-  )
-}
+    <>
+      <NotAllowed />
+      <div>Experiments</div>
+    </>
+  );
+};
 
-export default Experiments
+export default Experiments;

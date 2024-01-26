@@ -10,6 +10,7 @@ import InputErrorFormik from "@/components/ui/InputErrorFormik";
 import InputFormik from "@/components/ui/InputFormik";
 import InputButton from "@/components/ui/InputButton";
 import { showNotification, AlertType } from "@/components/layout/Notification";
+import { Tooltip } from "@mui/material";
 
 const SignIn = () => {
   const [message, setMessage] = useState("");
@@ -43,7 +44,7 @@ const SignIn = () => {
 
         setTimeout(() => {
           router.push("/");
-        }, 2000);
+        }, 1500);
       } catch (error: any) {
         const message = error.message.replace("GraphQL error: ", "");
         showNotification({
@@ -62,7 +63,7 @@ const SignIn = () => {
     );
   };
   return (
-    <div className="bg-gray-800 min-h-screen flex flex-col justify-center">
+    <div className="bg-gray-600 min-h-screen flex flex-col justify-center">
       <h1 className="text-center text-2xl text-white font-light">Login</h1>
       {message && ShowMessage()}
       <div className="flex justify-center mt-5">
@@ -100,9 +101,20 @@ const SignIn = () => {
             <InputButton value={"Sign In"} />
 
             <Link href="/sign-up">
-              <h2 className="flex text-gray-500 p-4 text-sm  justify-center">
+              <h2 className="flex text-gray-500 hover:text-gray-900 p-4 text-sm  justify-center">
                 Dont have an account? Sign up here
               </h2>
+            </Link>
+            <Link href="/home">
+              <Tooltip
+                arrow
+                title="Access Navika featurres without an account"
+                placement="top"
+              >
+                <h2 className="flex text-gray-500 hover:text-gray-900 text-sm  justify-center">
+                  Going home as a guest here
+                </h2>
+              </Tooltip>
             </Link>
           </form>
         </div>

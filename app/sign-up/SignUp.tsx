@@ -10,6 +10,7 @@ import InputErrorFormik from "@/components/ui/InputErrorFormik";
 import InputButton from "@/components/ui/InputButton";
 import Link from "next/link";
 import { AlertType, showNotification } from "@/components/layout/Notification";
+import Tooltip from "@mui/material/Tooltip";
 
 const SignUp = () => {
   const [createNewUser] = useMutation(CREATE_NEW_USER);
@@ -60,7 +61,7 @@ const SignUp = () => {
   });
 
   return (
-    <div className="bg-gray-800 min-h-screen flex flex-col justify-center">
+    <div className="bg-gray-600 min-h-screen flex flex-col justify-center">
       <h1 className="text-center text-2xl text-white font-light">
         Navika - Sign Up
       </h1>
@@ -113,9 +114,20 @@ const SignUp = () => {
             <InputButton value={"Create Account"} />
 
             <Link href="/login">
-              <h2 className="flex text-gray-500 p-4 text-sm  justify-center">
+              <h2 className="flex text-gray-500 hover:text-gray-900 p-4 text-sm  justify-center">
                 Already have an account? Sing in here
               </h2>
+            </Link>
+            <Link href="/home">
+              <Tooltip
+                arrow
+                title="Access Navika featurres without an account"
+                placement="top"
+              >
+                <h2 className="flex text-gray-500 hover:text-gray-900 text-sm  justify-center">
+                  Going home as a guest here
+                </h2>
+              </Tooltip>
             </Link>
           </form>
         </div>
