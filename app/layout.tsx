@@ -4,6 +4,7 @@ import "./globals.css";
 import Layout from "../components/layout/Layout";
 import { ApolloProvider } from "@apollo/client";
 import client from "./config/apollo";
+import ReduxProvider from "@/src/redux/provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -16,7 +17,9 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <ApolloProvider client={client}>
-          <Layout appContent={children} />
+          <ReduxProvider>
+            <Layout appContent={children} />
+          </ReduxProvider>
         </ApolloProvider>
       </body>
     </html>
