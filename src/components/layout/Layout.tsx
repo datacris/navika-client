@@ -5,8 +5,8 @@ import Footer from "./Footer";
 import { usePathname } from "next/navigation";
 import { ToastContainer } from "react-toastify";
 import Sidebar from "./Sidebar";
-import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "@/src/redux/store";
+import { useSelector } from "react-redux";
+import { RootState } from "@/src/redux/store";
 import NotAllowed from "./NotAllowed";
 
 const Layout = ({ appContent }: any) => {

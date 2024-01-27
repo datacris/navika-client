@@ -2,8 +2,8 @@
 import React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "@/src/redux/store";
+import { useSelector } from "react-redux";
+import { RootState } from "@/src/redux/store";
 import { LockClosedIcon } from "@heroicons/react/24/outline";
 import type { Menu } from "@/src/redux/features/menu-slice";
 

@@ -1,34 +1,38 @@
+import { FormHelperText, TextField } from "@mui/material";
 import React from "react";
 
 interface InputFormikProps {
   id: string;
-  title: string;
-  type: string;
+  type?: string;
   placeholder?: string;
   value: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onBlur?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  touched?: any;
+  errors?: any;
 }
 const InputFormik = (props: InputFormikProps) => {
-  const { id, title, type, placeholder, value, onChange, onBlur } = props;
+  const { id, type, placeholder, value, onChange, onBlur, touched, errors } =
+    props;
   return (
-    <div className="mb-4">
-      <label
-        className="block text-gray-700 text-sm font-bold mb-2"
-        htmlFor={id}
-      >
-        {title}
-      </label>
-      <input
-        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-        id={id}
+    <>
+      <TextField
+        margin="normal"
+        fullWidth
         type={type}
-        placeholder={placeholder}
+        id={id}
+        label={placeholder}
+        name={id}
         value={value}
         onChange={onChange}
         onBlur={onBlur}
       />
-    </div>
+      {touched && errors && (
+        <FormHelperText className="bg-red-500 bg-opacity-20 rounded-sm p-1 text-sm">
+          {errors}
+        </FormHelperText>
+      )}
+    </>
   );
 };
 
