@@ -135,13 +135,13 @@ export default function SignIn() {
             </Button>
           </Box>
 
-          <Grid container>
-            <Grid item xs>
+          <Grid container className="flex justify-between" >
+            <Grid item >
               <Link href="/home" variant="body2">
                 <Tooltip
                   arrow
                   title="Access Navika featurres without an account"
-                  placement="top"
+                  placement="bottom"
                 >
                   <div>Try Navika as a guest here</div>
                 </Tooltip>
