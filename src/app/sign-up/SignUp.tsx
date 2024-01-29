@@ -1,18 +1,29 @@
 "use client";
 import React from "react";
+import Avatar from "@mui/material/Avatar";
+import Button from "@mui/material/Button";
+import CssBaseline from "@mui/material/CssBaseline";
+import Link from "@mui/material/Link";
+import Paper from "@mui/material/Paper";
+import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import Typography from "@mui/material/Typography";
+import {
+  AlertType,
+  showNotification,
+} from "@/src/components/layout/Notification";
 import { useRouter } from "next/navigation";
-import { useFormik } from "formik";
-import * as Yup from "yup";
 import { useMutation } from "@apollo/client";
 import { CREATE_NEW_USER } from "@/src/config/queries";
+import { useFormik } from "formik";
+import * as Yup from "yup";
 import InputFormik from "@/src/components/ui/InputFormik";
-import InputErrorFormik from "@/src/components/ui/InputErrorFormik";
 import InputButton from "@/src/components/ui/InputButton";
-import Link from "next/link";
-import { AlertType, showNotification } from "@/src/components/layout/Notification";
-import Tooltip from "@mui/material/Tooltip";
+import { Tooltip } from "@mui/material";
 
-const SignUp = () => {
+export default function SignUp() {
   const [createNewUser] = useMutation(CREATE_NEW_USER);
   const router = useRouter();
 
@@ -54,86 +65,108 @@ const SignUp = () => {
         const message = error.message.replace("GraphQL error: ", "");
         showNotification({
           message,
-          type: AlertType.warn,
+          type: AlertType.error,
         });
       }
     },
   });
 
   return (
-    <div className="bg-gray-600 min-h-screen flex flex-col justify-center">
-      <h1 className="text-center text-2xl text-white font-light">
-        Navika - Sign Up
-      </h1>
-      <div className="flex justify-center mt-5">
-        <div className="w-full max-w-sm">
-          <form
-            className="bg-white rounded shadow-md px-8 pt-6 pb-8 mb-4"
+    <Grid container component="main" sx={{ height: "100vh" }}>
+      <CssBaseline />
+      <Grid
+        item
+        xs={false}
+        sm={4}
+        md={7}
+        sx={{
+          backgroundImage: "url(https://source.unsplash.com/random?wallpapers)",
+          backgroundRepeat: "no-repeat",
+          backgroundColor: (t) =>
+            t.palette.mode === "light"
+              ? t.palette.grey[50]
+              : t.palette.grey[900],
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+      />
+      <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+        <Box
+          sx={{
+            my: 12,
+            mx: 4,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <Avatar sx={{ m: 1, bgcolor: "primary.main" }}>
+            <AccountCircleIcon />
+          </Avatar>
+
+          <Typography component="h1" variant="h5">
+            Sign Up Navika
+          </Typography>
+
+          <Box
+            component="form"
             onSubmit={formik.handleSubmit}
+            className="w-full"
           >
             <InputFormik
               id={"name"}
-              title={"User Name"}
               type={"text"}
-              placeholder="Username"
+              placeholder={"User Name"}
               value={formik.values.name}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
+              touched={formik.touched.name}
+              errors={formik.errors.name}
             />
-
-            {formik.touched.name && formik.errors.name && (
-              <InputErrorFormik error={formik.errors.name} />
-            )}
-
             <InputFormik
               id={"email"}
-              title={"Email"}
-              type={"email"}
+              type={"text"}
               placeholder={"User email"}
               value={formik.values.email}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
+              touched={formik.touched.email}
+              errors={formik.errors.email}
             />
-            {formik.touched.email && formik.errors.email && (
-              <InputErrorFormik error={formik.errors.email} />
-            )}
 
             <InputFormik
               id={"password"}
-              title={"Password"}
+              placeholder={"Password"}
               type={"password"}
-              placeholder={"User password"}
               value={formik.values.password}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
+              touched={formik.touched.password}
+              errors={formik.errors.password}
             />
-            {formik.touched.password && formik.errors.password && (
-              <InputErrorFormik error={formik.errors.password} />
-            )}
+            <InputButton value={"Create new account"} />
+          </Box>
 
-            <InputButton value={"Create Account"} />
-
-            <Link href="/login">
-              <h2 className="flex text-gray-500 hover:text-gray-900 p-4 text-sm  justify-center">
-                Already have an account? Sing in here
-              </h2>
-            </Link>
-            <Link href="/home">
-              <Tooltip
-                arrow
-                title="Access Navika featurres without an account"
-                placement="top"
-              >
-                <h2 className="flex text-gray-500 hover:text-gray-900 text-sm  justify-center">
-                  Going home as a guest here
-                </h2>
-              </Tooltip>
-            </Link>
-          </form>
-        </div>
-      </div>
-    </div>
+          <Grid container className="flex justify-between">
+            <Grid item>
+              <Link href="/home" variant="body2">
+                <Tooltip
+                  arrow
+                  title="Access Navika featurres without an account"
+                  placement="bottom"
+                >
+                  <div>Try Navika as a guest here</div>
+                </Tooltip>
+              </Link>
+            </Grid>
+            <Grid item>
+              <Link href="/login" variant="body2">
+                {"Already have an account? Sign in"}
+              </Link>
+            </Grid>
+          </Grid>
+        </Box>
+      </Grid>
+    </Grid>
   );
-};
-
-export default SignUp;
+}

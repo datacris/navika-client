@@ -1,3 +1,4 @@
+import { Button } from "@mui/material";
 import React from "react";
 
 interface InputButton {
@@ -5,11 +6,15 @@ interface InputButton {
 }
 const InputButton = ({ value }: InputButton) => {
   return (
-    <input
+    <Button
       type="submit"
-      className="bg-gray-800 w-full mt-5 p-2 text-white uppercas hover:cursor-pointer hover:bg-gray-900 rounded"
-      value={value}
-    />
+      fullWidth
+      className="bg-blue-700"
+      variant="contained"
+      sx={{ mt: 3, mb: 2 }}
+    >
+      {value}
+    </Button>
   );
 };
 

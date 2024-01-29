@@ -19,6 +19,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import InputFormik from "@/src/components/ui/InputFormik";
 import { Tooltip } from "@mui/material";
+import InputButton from "@/src/components/ui/InputButton";
 
 export default function SignIn() {
   const router = useRouter();
@@ -124,19 +125,11 @@ export default function SignIn() {
               touched={formik.touched.password}
               errors={formik.errors.password}
             />
-            <Button
-              type="submit"
-              fullWidth
-              className="bg-blue-700"
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-            >
-              Sign In
-            </Button>
+            <InputButton value={"Sign In"} />
           </Box>
 
-          <Grid container className="flex justify-between" >
-            <Grid item >
+          <Grid container className="flex justify-between">
+            <Grid item>
               <Link href="/home" variant="body2">
                 <Tooltip
                   arrow
