@@ -10,13 +10,14 @@ import { AppDispatch, RootState } from "@/src/redux/store";
 import { setUser, removeUser } from "@/src/redux/features/user-slice";
 import type { User } from "@/src/redux/features/user-slice";
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar";
-import { styled} from "@mui/material/styles";
+import { styled } from "@mui/material/styles";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
 import Badge from "@mui/material/Badge";
 import MenuIcon from "@mui/icons-material/Menu";
 import NotificationsIcon from "@mui/icons-material/Notifications";
+import type { Menu } from "@/src/redux/features/menu-slice";
 
 const Header = ({ isSidebarOpen, toggleSidebar, sidebarWidth }: any) => {
   const router = useRouter();
@@ -50,6 +51,13 @@ const Header = ({ isSidebarOpen, toggleSidebar, sidebarWidth }: any) => {
   }, [loading, data, router, userState, dispatch]);
 
   if (loading) return null;
+
+  const getPathname = () => {
+    const currentMenuItem = menu.find((item: Menu) =>
+      item.paths.includes(pathname)
+    );
+    return currentMenuItem.title;
+  };
 
   const logOut = () => {
     const handleLogOut = () => {
@@ -94,7 +102,6 @@ const Header = ({ isSidebarOpen, toggleSidebar, sidebarWidth }: any) => {
     );
   };
 
-  // const drawerWidth: number = 240;
   const AppBar = styled(MuiAppBar, {
     shouldForwardProp: (prop) => prop !== "open",
   })<AppBarProps>(({ theme, open }) => ({
@@ -140,7 +147,7 @@ const Header = ({ isSidebarOpen, toggleSidebar, sidebarWidth }: any) => {
             noWrap
             sx={{ flexGrow: 1 }}
           >
-            Dashboard
+            {getPathname()}
           </Typography>
           <IconButton color="inherit">
             <Badge badgeContent={4} color="secondary">
