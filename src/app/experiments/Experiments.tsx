@@ -1,9 +1,12 @@
 import React from "react";
+import Dashboard from "@/src/components/experimental/Dashboard";
 
 const Experiments = () => {
   return (
     <>
-      <div>Experiments</div>
+      <div>
+        <Dashboard />
+      </div>
     </>
   );
 };

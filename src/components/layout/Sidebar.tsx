@@ -6,71 +6,122 @@ import { useSelector } from "react-redux";
 import { RootState } from "@/src/redux/store";
 import { LockClosedIcon } from "@heroicons/react/24/outline";
 import type { Menu } from "@/src/redux/features/menu-slice";
+import { styled } from "@mui/material/styles";
+import MuiDrawer from "@mui/material/Drawer";
+import Toolbar from "@mui/material/Toolbar";
+import List from "@mui/material/List";
+import Divider from "@mui/material/Divider";
+import IconButton from "@mui/material/IconButton";
+import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
+import DashboardIcon from "@mui/icons-material/Dashboard";
+import ScienceOutlinedIcon from "@mui/icons-material/ScienceOutlined";
+import ChecklistRtlOutlinedIcon from "@mui/icons-material/ChecklistRtlOutlined";
 
-const Sidebar = () => {
+const Sidebar = ({ isSidebarOpen, toggleSidebar, sidebarWidth }: any) => {
   const pathname = usePathname();
   const { isUserLogued } = useSelector((state: RootState) => state.User);
   const { menu } = useSelector((state: RootState) => state.MenuItems);
 
-  const getStyles = (paths: Array<any>, isAuthRequired: Boolean) => {
-    let response = paths.includes(pathname) ? "bg-blue-800 p-3" : "p-2";
-    if (isAuthRequired && !isUserLogued)
-      response = response.concat(" cursor-not-allowed");
-    return response;
+  const iconPath = (iconName: string) => {
+    switch (iconName) {
+      case "DashboardIcon": {
+        return <DashboardIcon />;
+        break;
+      }
+      case "ScienceOutlinedIcon": {
+        return <ScienceOutlinedIcon />;
+        break;
+      }
+      case "ChecklistRtlOutlinedIcon": {
+        return <ChecklistRtlOutlinedIcon />;
+        break;
+      }
+      default: {
+        return <DashboardIcon />;
+        break;
+      }
+    }
   };
 
   const buildMenu = (buildParamaters: Menu) => {
-    const { title, link, isAuthRequired, paths } = buildParamaters;
-    const classes = getStyles(paths, isAuthRequired);
+    const { title, link, isAuthRequired, paths, icon = "" } = buildParamaters;
     const allowAccess = isAuthRequired ? isUserLogued : true;
+    const isPathAvailable = !allowAccess
+      ? " cursor-not-allowed text-opacity-40"
+      : "";
+    const isActivePath = paths.includes(pathname)
+      ? " bg-blue-300 hover:bg-blue-200"
+      : "";
+    const pathClasses = isPathAvailable + " " + isActivePath;
+
     return (
-      <li className={classes}>
+      <>
         <Link href={link}>
-          <div className="flex items-center">
-            <p
-              className={`text-white block ${
-                !allowAccess && "cursor-not-allowed text-opacity-40"
-              }`}
-            >
-              {title}
-            </p>
+          <ListItemButton className={pathClasses}>
+            <ListItemIcon>{iconPath(icon)}</ListItemIcon>
+            <ListItemText primary={title} />
             {!allowAccess && (
-              <div className=" ml-2">
-                <LockClosedIcon className="h-4 w-4 text-gray-100 cursor-not-allowed" />
-              </div>
+              <LockClosedIcon className="h-4 w-4 text-gray-700 cursor-not-allowed" />
             )}
-          </div>
+          </ListItemButton>
         </Link>
-      </li>
+      </>
     );
   };
 
-  return (
-    <aside
-      className="bg-gray-700 
-    sm:w-1/3 
-    md:w-1/6 
-    xl:w-1/8
-    sm:min-h-screen 
-    p-7"
-    >
-      <div>
-        <Link href="/home">
-          <p className="text-white text-2xl font-black">NAVIKA APP</p>
-        </Link>
-      </div>
-      <nav className="mt-5 list-none">
-        {menu.map((item) => {
-          return <div key={item.title}>{buildMenu(item)}</div>;
-        })}
+  const Drawer = styled(MuiDrawer, {
+    shouldForwardProp: (prop) => prop !== "open",
+  })(({ theme, open }) => ({
+    "& .MuiDrawer-paper": {
+      position: "relative",
+      whiteSpace: "nowrap",
+      width: sidebarWidth,
+      transition: theme.transitions.create("width", {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.enteringScreen,
+      }),
+      boxSizing: "border-box",
+      ...(!open && {
+        overflowX: "hidden",
+        transition: theme.transitions.create("width", {
+          easing: theme.transitions.easing.sharp,
+          duration: theme.transitions.duration.leavingScreen,
+        }),
+        width: theme.spacing(7),
+        [theme.breakpoints.up("sm")]: {
+          width: theme.spacing(9),
+        },
+      }),
+    },
+  }));
 
-        <Link href="/sign-up">
-          <h2 className="flex text-gray-500 p-4 text-sm  justify-center">
-            Dont have an account? Sign up here
-          </h2>
-        </Link>
-      </nav>
-    </aside>
+  return (
+    <>
+      <Drawer variant="permanent" open={isSidebarOpen}>
+        <Toolbar
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "flex-end",
+            px: [1],
+          }}
+        >
+          Navika 
+          <IconButton onClick={() => toggleSidebar()}>
+            <ChevronLeftIcon />
+          </IconButton>
+        </Toolbar>
+        <Divider />
+        <List component="nav">
+          {menu.map((item: any) => {
+            return <div key={item.title}>{buildMenu(item)}</div>;
+          })}
+        </List>
+      </Drawer>
+    </>
   );
 };
 

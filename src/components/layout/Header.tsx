@@ -2,20 +2,34 @@
 import React, { useEffect } from "react";
 import { useQuery } from "@apollo/client";
 import { useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { GET_USER } from "@/src/config/queries";
 import { UserCircleIcon } from "@heroicons/react/24/solid";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/src/redux/store";
 import { setUser, removeUser } from "@/src/redux/features/user-slice";
 import type { User } from "@/src/redux/features/user-slice";
+import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar";
+import { styled} from "@mui/material/styles";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
+import IconButton from "@mui/material/IconButton";
+import Badge from "@mui/material/Badge";
+import MenuIcon from "@mui/icons-material/Menu";
+import NotificationsIcon from "@mui/icons-material/Notifications";
 
-const Header = () => {
+const Header = ({ isSidebarOpen, toggleSidebar, sidebarWidth }: any) => {
   const router = useRouter();
-
+  const pathname = usePathname();
+  const { menu } = useSelector((state: RootState) => state.MenuItems);
   const userState = useSelector((state: RootState) => state.User);
   const dispatch = useDispatch<AppDispatch>();
 
   const { data, loading, client, refetch } = useQuery(GET_USER);
+
+  interface AppBarProps extends MuiAppBarProps {
+    open?: boolean;
+  }
 
   useEffect(() => {
     // If the user is not logued in, it will be redirected to the login page
@@ -80,16 +94,67 @@ const Header = () => {
     );
   };
 
+  // const drawerWidth: number = 240;
+  const AppBar = styled(MuiAppBar, {
+    shouldForwardProp: (prop) => prop !== "open",
+  })<AppBarProps>(({ theme, open }) => ({
+    zIndex: theme.zIndex.drawer + 1,
+    transition: theme.transitions.create(["width", "margin"], {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen,
+    }),
+    ...(open && {
+      marginLeft: sidebarWidth,
+      width: `calc(100% - ${sidebarWidth}px)`,
+      transition: theme.transitions.create(["width", "margin"], {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.enteringScreen,
+      }),
+    }),
+  }));
+
   return (
-    <div className="h-8 p-2">
-      <div className="flex items-center border-2 border-indigo-50 p-3 absolute w-30 mb-3 right-5 rounded shadow-md bg-gray-200">
-        <UserCircleIcon className="h-7 w-7 text-blue-800" />
-        <p className="mr-5 text-md text-light">
-          {userState.isUserLogued ? userState.name : "Guest"}
-        </p>
-        {userState.isUserLogued ? logOut() : LogIn()}
-      </div>
-    </div>
+    <>
+      <AppBar position="absolute" open={isSidebarOpen}>
+        <Toolbar
+          sx={{
+            pr: "24px", // keep right padding when drawer closed
+          }}
+        >
+          <IconButton
+            edge="start"
+            color="inherit"
+            aria-label="open drawer"
+            onClick={() => toggleSidebar()}
+            sx={{
+              marginRight: "36px",
+              ...(isSidebarOpen && { display: "none" }),
+            }}
+          >
+            <MenuIcon />
+          </IconButton>
+          <Typography
+            component="h1"
+            variant="h6"
+            color="inherit"
+            noWrap
+            sx={{ flexGrow: 1 }}
+          >
+            Dashboard
+          </Typography>
+          <IconButton color="inherit">
+            <Badge badgeContent={4} color="secondary">
+              <NotificationsIcon />
+            </Badge>
+          </IconButton>
+          <UserCircleIcon className="h-7 w-7 text-blue-800" />
+          <p className="mr-5 text-md text-light">
+            {userState.isUserLogued ? userState.name : "Guest"}
+          </p>
+          {userState.isUserLogued ? logOut() : LogIn()}
+        </Toolbar>
+      </AppBar>
+    </>
   );
 };
 

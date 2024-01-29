@@ -5,6 +5,7 @@ export type Menu = {
   link: string;
   isAuthRequired: boolean;
   paths: Array<any>;
+  icon?: string;
 };
 type MenuState = {
   menu: Menu[];
@@ -17,18 +18,21 @@ const initialState: MenuState = {
       link: "/home",
       isAuthRequired: false,
       paths: ["/", "/home"],
+      icon: "DashboardIcon",
     },
     {
       title: "Experiments",
       link: "/experiments",
       isAuthRequired: true,
       paths: ["/experiments"],
+      icon: "ScienceOutlinedIcon",
     },
     {
       title: "Todo - redux",
       link: "/todo-redux",
       isAuthRequired: true,
       paths: ["/todo-redux"],
+      icon: "ChecklistRtlOutlinedIcon",
     },
   ],
 };
