@@ -49,7 +49,7 @@ const Layout = ({ appContent }: any) => {
                     <Paper
                       className="p-3 mt-1 mx-auto"
                       style={{
-                        minWidth: `calc(98vw - ${sidebarWidth}px)`,
+                        minWidth: `calc(97vw - ${sidebarWidth}px)`,
                         minHeight: "80vh",
                       }}
                       elevation={3}
