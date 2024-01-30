@@ -56,7 +56,7 @@ const Header = ({ isSidebarOpen, toggleSidebar, sidebarWidth }: any) => {
     const currentMenuItem = menu.find((item: Menu) =>
       item.paths.includes(pathname)
     );
-    return currentMenuItem.title;
+    return currentMenuItem?.title;
   };
 
   const logOut = () => {
@@ -122,7 +122,7 @@ const Header = ({ isSidebarOpen, toggleSidebar, sidebarWidth }: any) => {
 
   return (
     <>
-      <AppBar position="absolute" open={isSidebarOpen}>
+      <AppBar className='' open={isSidebarOpen}>
         <Toolbar
           sx={{
             pr: "24px", // keep right padding when drawer closed

@@ -1,18 +1,18 @@
 "use client";
 import React, { useState } from "react";
 import Header from "./Header";
-import Footer from "./Footer";
 import { usePathname } from "next/navigation";
 import { ToastContainer } from "react-toastify";
 import Sidebar from "./Sidebar";
 import { useSelector } from "react-redux";
 import { RootState } from "@/src/redux/store";
 import NotAllowed from "./NotAllowed";
+import { Box, Container, Grid, Paper, Toolbar } from "@mui/material";
 
 const Layout = ({ appContent }: any) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
-  const sidebarWidth: number = 240;
+  const sidebarWidth: number = 220;
 
   const pathname = usePathname();
   const { isUserLogued } = useSelector((state: RootState) => state.User);
@@ -41,10 +41,27 @@ const Layout = ({ appContent }: any) => {
               toggleSidebar={toggleSidebar}
               sidebarWidth={sidebarWidth}
             />
-            <main className="sm:w-2/3 xl:w-4/5 sm:min-h-screen p-5">
-              {allowAccess ? appContent : <NotAllowed />}
-              <Footer />
-            </main>
+            <Box component="main">
+              <Toolbar />
+              <Container className="p-2 mt-0">
+                <Grid container spacing={3}>
+                  <Grid item xs={12} className=" flex flex-wrap">
+                    <Paper
+                      className="p-3 mt-1 mx-auto"
+                      style={{
+                        minWidth: `calc(98vw - ${sidebarWidth}px)`,
+                        minHeight: "80vh",
+                      }}
+                      elevation={3}
+                    >
+                      <Container className="w-full">
+                        {allowAccess ? appContent : <NotAllowed />}
+                      </Container>
+                    </Paper>
+                  </Grid>
+                </Grid>
+              </Container>
+            </Box>
           </div>
         </div>
       )}

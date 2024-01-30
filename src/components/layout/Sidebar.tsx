@@ -19,6 +19,7 @@ import ListItemText from "@mui/material/ListItemText";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import ScienceOutlinedIcon from "@mui/icons-material/ScienceOutlined";
 import ChecklistRtlOutlinedIcon from "@mui/icons-material/ChecklistRtlOutlined";
+import { Typography } from "@mui/material";
 
 const Sidebar = ({ isSidebarOpen, toggleSidebar, sidebarWidth }: any) => {
   const pathname = usePathname();
@@ -100,7 +101,10 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar, sidebarWidth }: any) => {
 
   return (
     <>
-      <Drawer variant="permanent" open={isSidebarOpen}>
+      <Drawer className='max-h-screen sticky top-0'
+        variant="permanent"
+        open={isSidebarOpen}
+      >
         <Toolbar
           sx={{
             display: "flex",
@@ -109,7 +113,8 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar, sidebarWidth }: any) => {
             px: [1],
           }}
         >
-          Navika 
+          <Typography variant="h3">Navika</Typography>
+
           <IconButton onClick={() => toggleSidebar()}>
             <ChevronLeftIcon />
           </IconButton>

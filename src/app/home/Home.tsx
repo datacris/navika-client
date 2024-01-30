@@ -3,7 +3,7 @@ import React from "react";
 
 const Home = () => {
   return (
-    <div className="container mx-auto mt-8">
+    <div className="container mx-auto mt-8 w-full">
       <h1 className="text-4xl font-bold mb-6">Welcome to Navika</h1>
 
       <section className="mb-8">
