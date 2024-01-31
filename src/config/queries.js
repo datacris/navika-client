@@ -25,3 +25,15 @@ export const GET_USER = gql`
     }
   }
 `;
+
+export const CREATE_NEW_QUOTE = gql`
+  mutation newQuote($input: QuoteInput) {
+    newQuote(input: $input) {
+      id
+      quote
+      reference
+      author
+      book
+    }
+  }
+`;

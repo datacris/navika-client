@@ -18,6 +18,7 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import ScienceOutlinedIcon from "@mui/icons-material/ScienceOutlined";
+import RateReviewIcon from '@mui/icons-material/RateReview';
 import ChecklistRtlOutlinedIcon from "@mui/icons-material/ChecklistRtlOutlined";
 import { Typography } from "@mui/material";
 
@@ -38,6 +39,10 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar, sidebarWidth }: any) => {
       }
       case "ChecklistRtlOutlinedIcon": {
         return <ChecklistRtlOutlinedIcon />;
+        break;
+      }
+      case "RateReviewIcon": {
+        return <RateReviewIcon />;
         break;
       }
       default: {

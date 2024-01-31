@@ -34,6 +34,13 @@ const initialState: MenuState = {
       paths: ["/todo-redux"],
       icon: "ChecklistRtlOutlinedIcon",
     },
+    {
+      title: "Quotes",
+      link: "/quotes",
+      isAuthRequired: true,
+      paths: ["/quotes"],
+      icon: "RateReviewIcon",
+    },
   ],
 };
 

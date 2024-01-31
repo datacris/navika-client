@@ -10,13 +10,24 @@ interface InputFormikProps {
   onBlur?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   touched?: any;
   errors?: any;
+  small?: boolean;
 }
 const InputFormik = (props: InputFormikProps) => {
-  const { id, type, placeholder, value, onChange, onBlur, touched, errors } =
-    props;
+  const {
+    id,
+    type,
+    placeholder,
+    value,
+    onChange,
+    onBlur,
+    touched,
+    errors,
+    small,
+  } = props;
   return (
     <>
       <TextField
+        size={small ? "small" : "medium"}
         margin="normal"
         fullWidth
         type={type}
