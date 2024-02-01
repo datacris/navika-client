@@ -32,6 +32,14 @@ const Header = ({ isSidebarOpen, toggleSidebar, sidebarWidth }: any) => {
     open?: boolean;
   }
 
+  // This use Effect refetch the UserInfo after the locaStorage updates
+  useEffect(()=>{
+    const refetchUser = async () => {
+      await refetch();
+    };
+    refetchUser();
+  },[refetch])
+
   useEffect(() => {
     // If the user is not logued in, it will be redirected to the login page
     // if (!loading && !data?.getUser) {
