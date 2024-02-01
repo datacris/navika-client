@@ -5,16 +5,14 @@ import { useFormik } from "formik";
 import InputFormik from "@/src/components/ui/InputFormik";
 import InputButton from "@/src/components/ui/InputButton";
 import { CREATE_NEW_QUOTE } from "@/src/config/queries";
-import { useRouter } from "next/navigation";
 import { useMutation } from "@apollo/client";
 import {
   AlertType,
   showNotification,
 } from "@/src/components/layout/Notification";
 
-const NewQuote = ({ toogleShowCreateNewQuote }: any) => {
+const NewQuote = ({ toogleShowCreateNewQuote, triggerRefetch }: any) => {
   const [createNewQuote] = useMutation(CREATE_NEW_QUOTE);
-  const router = useRouter();
 
   const formik = useFormik({
     initialValues: {
@@ -44,6 +42,7 @@ const NewQuote = ({ toogleShowCreateNewQuote }: any) => {
           type: AlertType.success,
         });
         toogleShowCreateNewQuote();
+        triggerRefetch();
       } catch (error: any) {
         const message = error.message.replace("GraphQL error: ", "");
         showNotification({

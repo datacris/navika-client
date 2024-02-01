@@ -25,7 +25,6 @@ export const GET_USER = gql`
     }
   }
 `;
-
 export const CREATE_NEW_QUOTE = gql`
   mutation newQuote($input: QuoteInput) {
     newQuote(input: $input) {
@@ -34,6 +33,18 @@ export const CREATE_NEW_QUOTE = gql`
       reference
       author
       book
+    }
+  }
+`;
+export const GET_QUOTES = gql`
+  query guetQuotes {
+    getQuotes {
+      id
+      quote
+      reference
+      author
+      book
+      created
     }
   }
 `;

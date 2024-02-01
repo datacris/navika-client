@@ -13,8 +13,13 @@ import { Grid } from "@mui/material";
 
 const Quotes = () => {
   const [showCreateNewQuote, setShowCreateNewQuote] = useState(false);
+  const [refetchTriggered, setRefetchTriggered] = useState(false);
+
   const toogleShowCreateNewQuote = () => {
     setShowCreateNewQuote(!showCreateNewQuote);
+  };
+  const triggerRefetch = () => {
+    setRefetchTriggered(!refetchTriggered);
   };
 
   const card = (
@@ -30,7 +35,7 @@ const Quotes = () => {
           Admin Section
         </Typography>
         <Typography variant="body2">
-          Creating quotes for Word of the Day
+          Creating quotes for Word of the Day section
         </Typography>
       </CardContent>
       <CardActions>
@@ -56,16 +61,18 @@ const Quotes = () => {
 
             {showCreateNewQuote && (
               <Box sx={{ minWidth: 275 }}>
-                <Card className='mt-4' variant="outlined">
-                  <NewQuote toogleShowCreateNewQuote={toogleShowCreateNewQuote}/>
+                <Card className="mt-4" variant="outlined">
+                  <NewQuote
+                    toogleShowCreateNewQuote={toogleShowCreateNewQuote}
+                    triggerRefetch={triggerRefetch}
+                  />
                 </Card>
               </Box>
             )}
-
           </div>
         </Grid>
         <Grid item xs={8}>
-          <ListQuotes />
+          <ListQuotes refetchTriggered={refetchTriggered} />
         </Grid>
       </Grid>
     </div>
