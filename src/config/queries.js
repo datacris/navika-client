@@ -48,3 +48,8 @@ export const GET_QUOTES = gql`
     }
   }
 `;
+export const DELETE_QUOTE = gql`
+  mutation deleteQuote($id: ID!) {
+    deleteQuote(id: $id)
+  }
+`;

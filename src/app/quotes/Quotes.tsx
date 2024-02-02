@@ -11,6 +11,15 @@ import AddIcon from "@mui/icons-material/Add";
 import NewQuote from "./NewQuote";
 import { Grid } from "@mui/material";
 
+export type Quote = {
+  id: string;
+  quote: string;
+  reference: string;
+  author: string;
+  book: string;
+  created: string;
+};
+
 const Quotes = () => {
   const [showCreateNewQuote, setShowCreateNewQuote] = useState(false);
   const [refetchTriggered, setRefetchTriggered] = useState(false);
