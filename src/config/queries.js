@@ -53,3 +53,15 @@ export const DELETE_QUOTE = gql`
     deleteQuote(id: $id)
   }
 `;
+export const UPDATE_QUOTE = gql`
+  mutation updateQuote($id: ID!, $input: QuoteInput) {
+    updateQuote(id: $id, input: $QuoteInput) {
+      id
+      quote
+      reference
+      author
+      book
+      created
+    }
+  }
+`;

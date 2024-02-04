@@ -22,13 +22,14 @@ export type Quote = {
 
 const Quotes = () => {
   const [showCreateNewQuote, setShowCreateNewQuote] = useState(false);
+
   const [refetchTriggered, setRefetchTriggered] = useState(false);
+  const triggerRefetch = () => {
+    setRefetchTriggered(!refetchTriggered);
+  };
 
   const toogleShowCreateNewQuote = () => {
     setShowCreateNewQuote(!showCreateNewQuote);
-  };
-  const triggerRefetch = () => {
-    setRefetchTriggered(!refetchTriggered);
   };
 
   const card = (
@@ -81,7 +82,7 @@ const Quotes = () => {
           </div>
         </Grid>
         <Grid item xs={8}>
-          <ListQuotes refetchTriggered={refetchTriggered} />
+          <ListQuotes refetchTriggered={refetchTriggered} triggerRefetch={triggerRefetch} />
         </Grid>
       </Grid>
     </div>

@@ -1,7 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { useQuery } from "@apollo/client";
-import { Button } from "@mui/material";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -10,11 +9,10 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { GET_QUOTES } from "@/src/config/queries";
-import DeleteIcon from "@mui/icons-material/Delete";
-import EditIcon from "@mui/icons-material/Edit";
-import { Quote } from "./Quotes";
+import type { Quote } from "./Quotes";
+import DetailQuote from "./DetailQuote";
 
-const ListQuotes = ({ refetchTriggered }: any) => {
+const ListQuotes = ({ refetchTriggered, triggerRefetch }: any) => {
   const { data, loading, client, refetch } = useQuery(GET_QUOTES);
 
   useEffect(() => {
@@ -40,25 +38,9 @@ const ListQuotes = ({ refetchTriggered }: any) => {
           </TableHead>
           <TableBody>
             {data?.getQuotes.length > 0 ? (
-              data?.getQuotes.map((item: Quote) => {
-                return (
-                  <TableRow
-                    key={item.id}
-                    hover
-                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                  >
-                    <TableCell align="right">{item.quote}</TableCell>
-                    <TableCell align="right">{item.reference}</TableCell>
-                    <TableCell align="right">{item.author}</TableCell>
-                    <TableCell align="right">{item.book}</TableCell>
-                    <TableCell align="right">{item.created}</TableCell>
-                    <TableCell align="right">
-                      <EditIcon />
-                      <DeleteIcon />
-                    </TableCell>
-                  </TableRow>
-                );
-              })
+              data?.getQuotes.map((item: Quote) => (
+                <DetailQuote key={item.id} quoteRow={item} triggerRefetch={triggerRefetch} />
+              ))
             ) : (
               <TableCell align="right">No data</TableCell>
             )}
