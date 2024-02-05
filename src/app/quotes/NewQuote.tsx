@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, CardContent, Typography } from "@mui/material";
+import { Box, CardContent, Typography, Fade } from "@mui/material";
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import InputFormik from "@/src/components/ui/InputFormik";
@@ -15,7 +15,6 @@ import { AppDispatch } from "@/src/redux/store";
 import { clearQuotesAndRefetch } from "@/src/redux/features/quotes-slice";
 
 const NewQuote = () => {
-
   const dispatch = useDispatch<AppDispatch>();
 
   const [createNewQuote] = useMutation(CREATE_NEW_QUOTE);
@@ -59,56 +58,62 @@ const NewQuote = () => {
   });
   return (
     <div>
-      <CardContent>
-        <Typography variant="h5" component="div">
-          Create new Quote
-        </Typography>
-        <Box component="form" onSubmit={formik.handleSubmit} className="w-full">
-          <InputFormik
-            id={"quote"}
-            type={"text"}
-            placeholder={"Quote"}
-            value={formik.values.quote}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            touched={formik.touched.quote}
-            errors={formik.errors.quote}
-            small={true}
-          />
-          <InputFormik
-            id={"reference"}
-            type={"text"}
-            placeholder={"Reference"}
-            value={formik.values.reference}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            errors={formik.errors.reference}
-            small={true}
-          />
-          <InputFormik
-            id={"author"}
-            type={"text"}
-            placeholder={"Author"}
-            value={formik.values.author}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            errors={formik.errors.author}
-            small={true}
-          />
-          <InputFormik
-            id={"book"}
-            type={"text"}
-            placeholder={"Book"}
-            value={formik.values.book}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            errors={formik.errors.book}
-            small={true}
-          />
+      <Fade in={true} timeout={500}>
+        <CardContent>
+          <Typography variant="h5" component="div">
+            Create new Quote
+          </Typography>
+          <Box
+            component="form"
+            onSubmit={formik.handleSubmit}
+            className="w-full"
+          >
+            <InputFormik
+              id={"quote"}
+              type={"text"}
+              placeholder={"Quote"}
+              value={formik.values.quote}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              touched={formik.touched.quote}
+              errors={formik.errors.quote}
+              small={true}
+            />
+            <InputFormik
+              id={"reference"}
+              type={"text"}
+              placeholder={"Reference"}
+              value={formik.values.reference}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              errors={formik.errors.reference}
+              small={true}
+            />
+            <InputFormik
+              id={"author"}
+              type={"text"}
+              placeholder={"Author"}
+              value={formik.values.author}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              errors={formik.errors.author}
+              small={true}
+            />
+            <InputFormik
+              id={"book"}
+              type={"text"}
+              placeholder={"Book"}
+              value={formik.values.book}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              errors={formik.errors.book}
+              small={true}
+            />
 
-          <InputButton value={"Create Quote"} />
-        </Box>
-      </CardContent>
+            <InputButton value={"Create Quote"} />
+          </Box>
+        </CardContent>
+      </Fade>
     </div>
   );
 };

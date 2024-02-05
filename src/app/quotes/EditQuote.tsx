@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, CardContent, Typography } from "@mui/material";
+import { Box, CardContent, Typography, Fade } from "@mui/material";
 import * as Yup from "yup";
 import { Formik } from "formik";
 import InputFormik from "@/src/components/ui/InputFormik";
@@ -59,74 +59,76 @@ const EditQuote = () => {
 
   return (
     <div>
-      <CardContent>
-        <Typography variant="h5" component="div">
-          Edit Quote
-        </Typography>
-        <Formik
-          validationSchema={validationSchema}
-          enableReinitialize
-          initialValues={getQuote}
-          onSubmit={(values) => {
-            console.log(values);
-            handleUpdateQuote(values);
-          }}
-        >
-          {(props) => {
-            return (
-              <Box
-                component="form"
-                onSubmit={props.handleSubmit}
-                className="w-full"
-              >
-                <InputFormik
-                  id={"quote"}
-                  type={"text"}
-                  placeholder={"Quote"}
-                  value={props.values.quote}
-                  onChange={props.handleChange}
-                  onBlur={props.handleBlur}
-                  touched={props.touched.quote}
-                  errors={props.errors.quote}
-                  small={true}
-                />
-                <InputFormik
-                  id={"reference"}
-                  type={"text"}
-                  placeholder={"Reference"}
-                  value={props.values.reference}
-                  onChange={props.handleChange}
-                  onBlur={props.handleBlur}
-                  errors={props.errors.reference}
-                  small={true}
-                />
-                <InputFormik
-                  id={"author"}
-                  type={"text"}
-                  placeholder={"Author"}
-                  value={props.values.author}
-                  onChange={props.handleChange}
-                  onBlur={props.handleBlur}
-                  errors={props.errors.author}
-                  small={true}
-                />
-                <InputFormik
-                  id={"book"}
-                  type={"text"}
-                  placeholder={"Book"}
-                  value={props.values.book}
-                  onChange={props.handleChange}
-                  onBlur={props.handleBlur}
-                  errors={props.errors.book}
-                  small={true}
-                />
+      <Fade in={true} timeout={500}>
+        <CardContent>
+          <Typography variant="h5" component="div">
+            Edit Quote
+          </Typography>
+          <Formik
+            validationSchema={validationSchema}
+            enableReinitialize
+            initialValues={getQuote}
+            onSubmit={(values) => {
+              console.log(values);
+              handleUpdateQuote(values);
+            }}
+          >
+            {(props) => {
+              return (
+                <Box
+                  component="form"
+                  onSubmit={props.handleSubmit}
+                  className="w-full"
+                >
+                  <InputFormik
+                    id={"quote"}
+                    type={"text"}
+                    placeholder={"Quote"}
+                    value={props.values.quote}
+                    onChange={props.handleChange}
+                    onBlur={props.handleBlur}
+                    touched={props.touched.quote}
+                    errors={props.errors.quote}
+                    small={true}
+                  />
+                  <InputFormik
+                    id={"reference"}
+                    type={"text"}
+                    placeholder={"Reference"}
+                    value={props.values.reference}
+                    onChange={props.handleChange}
+                    onBlur={props.handleBlur}
+                    errors={props.errors.reference}
+                    small={true}
+                  />
+                  <InputFormik
+                    id={"author"}
+                    type={"text"}
+                    placeholder={"Author"}
+                    value={props.values.author}
+                    onChange={props.handleChange}
+                    onBlur={props.handleBlur}
+                    errors={props.errors.author}
+                    small={true}
+                  />
+                  <InputFormik
+                    id={"book"}
+                    type={"text"}
+                    placeholder={"Book"}
+                    value={props.values.book}
+                    onChange={props.handleChange}
+                    onBlur={props.handleBlur}
+                    errors={props.errors.book}
+                    small={true}
+                  />
 
-                <InputButton value={"Save quote"} />
-              </Box>
-            );
-          }}
-        </Formik>
-      </CardContent>
+                  <InputButton value={"Save quote"} />
+                </Box>
+              );
+            }}
+          </Formik>
+        </CardContent>
+      </Fade>
     </div>
   );
 };
