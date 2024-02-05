@@ -11,8 +11,13 @@ import Paper from "@mui/material/Paper";
 import { GET_QUOTES } from "@/src/config/queries";
 import type { Quote } from "./Quotes";
 import DetailQuote from "./DetailQuote";
+import { useSelector } from "react-redux";
+import { RootState } from "@/src/redux/store";
 
-const ListQuotes = ({ refetchTriggered, triggerRefetch }: any) => {
+const ListQuotes = () => {
+  
+  const { shouldRefetchQuotes } = useSelector((state: RootState) => state.Quotes);
+
   const { data, loading, client, refetch } = useQuery(GET_QUOTES);
 
   useEffect(() => {
@@ -20,7 +25,7 @@ const ListQuotes = ({ refetchTriggered, triggerRefetch }: any) => {
       await refetch();
     };
     refetchQuotes();
-  }, [refetchTriggered, refetch]);
+  }, [shouldRefetchQuotes, refetch]);
 
   return (
     <div>
@@ -39,7 +44,7 @@ const ListQuotes = ({ refetchTriggered, triggerRefetch }: any) => {
           <TableBody>
             {data?.getQuotes.length > 0 ? (
               data?.getQuotes.map((item: Quote) => (
-                <DetailQuote key={item.id} quoteRow={item} triggerRefetch={triggerRefetch} />
+                <DetailQuote key={item.id} quoteRow={item} />
               ))
             ) : (
               <TableCell align="right">No data</TableCell>

@@ -10,8 +10,14 @@ import {
   AlertType,
   showNotification,
 } from "@/src/components/layout/Notification";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "@/src/redux/store";
+import { refetchQuotes, closeNewQuoteForm } from "@/src/redux/features/quotes-slice";
 
-const NewQuote = ({ toogleShowCreateNewQuote, triggerRefetch }: any) => {
+const NewQuote = () => {
+
+  const dispatch = useDispatch<AppDispatch>();
+
   const [createNewQuote] = useMutation(CREATE_NEW_QUOTE);
 
   const formik = useFormik({
@@ -41,8 +47,8 @@ const NewQuote = ({ toogleShowCreateNewQuote, triggerRefetch }: any) => {
           message: `Quote created successfully!`,
           type: AlertType.success,
         });
-        toogleShowCreateNewQuote();
-        triggerRefetch();
+        dispatch(closeNewQuoteForm());
+        dispatch(refetchQuotes());
       } catch (error: any) {
         const message = error.message.replace("GraphQL error: ", "");
         showNotification({

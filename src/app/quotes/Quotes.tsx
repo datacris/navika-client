@@ -10,6 +10,9 @@ import Typography from "@mui/material/Typography";
 import AddIcon from "@mui/icons-material/Add";
 import NewQuote from "./NewQuote";
 import { Grid } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "@/src/redux/store";
+import { openNewQuoteForm } from "@/src/redux/features/quotes-slice";
 
 export type Quote = {
   id: string;
@@ -21,16 +24,9 @@ export type Quote = {
 };
 
 const Quotes = () => {
-  const [showCreateNewQuote, setShowCreateNewQuote] = useState(false);
 
-  const [refetchTriggered, setRefetchTriggered] = useState(false);
-  const triggerRefetch = () => {
-    setRefetchTriggered(!refetchTriggered);
-  };
-
-  const toogleShowCreateNewQuote = () => {
-    setShowCreateNewQuote(!showCreateNewQuote);
-  };
+  const dispatch = useDispatch<AppDispatch>();
+  const { shouldShownNewQuoteForm } = useSelector((state: RootState) => state.Quotes);
 
   const card = (
     <>
@@ -52,7 +48,7 @@ const Quotes = () => {
         <Button
           className="bg-blue-500 flex items-center "
           variant="contained"
-          onClick={toogleShowCreateNewQuote}
+          onClick={() => dispatch(openNewQuoteForm())}
         >
           <AddIcon className="mr-1 text-md" />
           Add new Quote
@@ -69,20 +65,17 @@ const Quotes = () => {
               <Card variant="outlined">{card}</Card>
             </Box>
 
-            {showCreateNewQuote && (
+            {shouldShownNewQuoteForm && (
               <Box sx={{ minWidth: 275 }}>
                 <Card className="mt-4" variant="outlined">
-                  <NewQuote
-                    toogleShowCreateNewQuote={toogleShowCreateNewQuote}
-                    triggerRefetch={triggerRefetch}
-                  />
+                  <NewQuote />
                 </Card>
               </Box>
             )}
           </div>
         </Grid>
         <Grid item xs={8}>
-          <ListQuotes refetchTriggered={refetchTriggered} triggerRefetch={triggerRefetch} />
+          <ListQuotes />
         </Grid>
       </Grid>
     </div>

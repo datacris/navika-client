@@ -4,28 +4,35 @@ import EditIcon from "@mui/icons-material/Edit";
 import React from "react";
 import { useMutation } from "@apollo/client";
 import { DELETE_QUOTE } from "@/src/config/queries";
-import { Quote } from "./Quotes"; // Import the Quote type directly
+import { Quote } from "./Quotes";
 import Swal from "sweetalert2";
+import {
+  AlertType,
+  showNotification,
+} from "@/src/components/layout/Notification";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "@/src/redux/store";
+import { refetchQuotes } from "@/src/redux/features/quotes-slice";
 
 interface DetailQuoteType {
   quoteRow: Quote;
-  triggerRefetch: any;
 }
-const DetailQuote = ({ quoteRow, triggerRefetch }: DetailQuoteType) => {
+const DetailQuote = ({ quoteRow }: DetailQuoteType) => {
+  const dispatch = useDispatch<AppDispatch>();
   const { id, quote: quoteText, reference, author, book, created } = quoteRow;
 
   const [deleteQuote] = useMutation(DELETE_QUOTE);
 
   const handleDeleteQuote = () => {
     Swal.fire({
-      title: "Do you want to delete this Quote?",
-      text: "This action cannot be undone!",
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, Delete!",
-      cancelButtonText: "No, Cancel",
+      confirmButtonText: "Yes, delete it!",
+      cancelButtonText: "No, cancel",
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
@@ -34,18 +41,18 @@ const DetailQuote = ({ quoteRow, triggerRefetch }: DetailQuoteType) => {
               id,
             },
           });
-          Swal.fire({
-            title: "Deleted!",
-            text: data.deleteQuote,
-            icon: "success",
+          showNotification({
+            message: `Quote Deleted`,
+            type: AlertType.success,
           });
-          triggerRefetch();
+          dispatch(refetchQuotes());
         } catch (error) {
           console.log("Error handleDeleteQuote => ", error);
         }
       }
     });
   };
+  const handleEditQuote = () => {};
 
   return (
     <>
@@ -60,7 +67,7 @@ const DetailQuote = ({ quoteRow, triggerRefetch }: DetailQuoteType) => {
         <TableCell align="right">{book}</TableCell>
         <TableCell align="right">{created}</TableCell>
         <TableCell align="right">
-          <EditIcon />
+          <EditIcon onClick={handleEditQuote} />
           <DeleteIcon onClick={handleDeleteQuote} />
         </TableCell>
       </TableRow>
