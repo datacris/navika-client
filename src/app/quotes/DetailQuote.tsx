@@ -12,7 +12,10 @@ import {
 } from "@/src/components/layout/Notification";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/src/redux/store";
-import { refetchQuotes } from "@/src/redux/features/quotes-slice";
+import {
+  clearQuotesAndRefetch,
+  openEditQuoteForm,
+} from "@/src/redux/features/quotes-slice";
 
 interface DetailQuoteType {
   quoteRow: Quote;
@@ -45,14 +48,17 @@ const DetailQuote = ({ quoteRow }: DetailQuoteType) => {
             message: `Quote Deleted`,
             type: AlertType.success,
           });
-          dispatch(refetchQuotes());
+          dispatch(clearQuotesAndRefetch());
         } catch (error) {
           console.log("Error handleDeleteQuote => ", error);
         }
       }
     });
   };
-  const handleEditQuote = () => {};
+
+  const handleEditQuote = () => {
+    dispatch(openEditQuoteForm(id));
+  };
 
   return (
     <>

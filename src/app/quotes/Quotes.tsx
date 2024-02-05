@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ListQuotes from "./ListQuotes";
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
@@ -9,10 +9,14 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import AddIcon from "@mui/icons-material/Add";
 import NewQuote from "./NewQuote";
+import EditQuote from "./EditQuote";
 import { Grid } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/src/redux/store";
-import { openNewQuoteForm } from "@/src/redux/features/quotes-slice";
+import {
+  openNewQuoteForm,
+  clearQuotesAndRefetch,
+} from "@/src/redux/features/quotes-slice";
 
 export type Quote = {
   id: string;
@@ -24,9 +28,14 @@ export type Quote = {
 };
 
 const Quotes = () => {
-
   const dispatch = useDispatch<AppDispatch>();
-  const { shouldShownNewQuoteForm } = useSelector((state: RootState) => state.Quotes);
+  const { shouldShownNewQuoteForm, showShownEditQuoteForm } = useSelector(
+    (state: RootState) => state.Quotes
+  );
+
+  useEffect(() => {
+    dispatch(clearQuotesAndRefetch());
+  }, [dispatch]);
 
   const card = (
     <>
@@ -69,6 +78,13 @@ const Quotes = () => {
               <Box sx={{ minWidth: 275 }}>
                 <Card className="mt-4" variant="outlined">
                   <NewQuote />
+                </Card>
+              </Box>
+            )}
+            {showShownEditQuoteForm && (
+              <Box sx={{ minWidth: 275 }}>
+                <Card className="mt-4" variant="outlined">
+                  <EditQuote />
                 </Card>
               </Box>
             )}

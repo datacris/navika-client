@@ -3,12 +3,14 @@ import { createSlice } from "@reduxjs/toolkit";
 export type QuoteState = {
   shouldShownNewQuoteForm: boolean;
   showShownEditQuoteForm: boolean;
+  editQuoteId: string;
   shouldRefetchQuotes: boolean;
 };
 
 const initialState: QuoteState = {
   shouldShownNewQuoteForm: false,
   showShownEditQuoteForm: false,
+  editQuoteId: "",
   shouldRefetchQuotes: false,
 };
 
@@ -16,31 +18,27 @@ export const quotes = createSlice({
   name: "quotes",
   initialState,
   reducers: {
+    clearQuotesAndRefetch: (state) => ({
+      ...initialState,
+      shouldRefetchQuotes: !state.shouldRefetchQuotes,
+    }),
     openNewQuoteForm: (state) => ({
       ...state,
       shouldShownNewQuoteForm: true,
       showShownEditQuoteForm: false,
     }),
-    closeNewQuoteForm: (state) => ({
-      ...state,
-      shouldShownNewQuoteForm: false,
-    }),
-    openEditQuoteForm: (state) => ({
+    openEditQuoteForm: (state, action) => ({
       ...state,
       shouldShownNewQuoteForm: false,
       showShownEditQuoteForm: true,
-    }),
-    refetchQuotes: (state) => ({
-      ...state,
-      shouldRefetchQuotes: !state.shouldRefetchQuotes,
-    }),
+      editQuoteId: action.payload,
+    })
   },
 });
 
 export const {
+  clearQuotesAndRefetch,
   openNewQuoteForm,
   openEditQuoteForm,
-  refetchQuotes,
-  closeNewQuoteForm,
 } = quotes.actions;
 export default quotes.reducer;

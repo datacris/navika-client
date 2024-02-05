@@ -12,7 +12,7 @@ import {
 } from "@/src/components/layout/Notification";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/src/redux/store";
-import { refetchQuotes, closeNewQuoteForm } from "@/src/redux/features/quotes-slice";
+import { clearQuotesAndRefetch } from "@/src/redux/features/quotes-slice";
 
 const NewQuote = () => {
 
@@ -47,8 +47,7 @@ const NewQuote = () => {
           message: `Quote created successfully!`,
           type: AlertType.success,
         });
-        dispatch(closeNewQuoteForm());
-        dispatch(refetchQuotes());
+        dispatch(clearQuotesAndRefetch());
       } catch (error: any) {
         const message = error.message.replace("GraphQL error: ", "");
         showNotification({
