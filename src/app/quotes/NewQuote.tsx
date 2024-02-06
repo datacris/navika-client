@@ -12,7 +12,11 @@ import {
 } from "@/src/components/layout/Notification";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/src/redux/store";
-import { clearQuotesAndRefetch } from "@/src/redux/features/quotes-slice";
+import {
+  clearQuotesAndRefetch,
+  closeQuoteForms,
+} from "@/src/redux/features/quotes-slice";
+import ClearIcon from "@mui/icons-material/Clear";
 
 const NewQuote = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -60,9 +64,13 @@ const NewQuote = () => {
     <div>
       <Fade in={true} timeout={500}>
         <CardContent>
-          <Typography variant="h5" component="div">
-            Create new Quote
-          </Typography>
+          <div className="flex justify-between">
+            <Typography variant="h5" component="div">
+              Create new Quote
+            </Typography>
+            <ClearIcon onClick={() => dispatch(closeQuoteForms())} />
+          </div>
+
           <Box
             component="form"
             onSubmit={formik.handleSubmit}

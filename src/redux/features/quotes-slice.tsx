@@ -32,7 +32,12 @@ export const quotes = createSlice({
       shouldShownNewQuoteForm: false,
       showShownEditQuoteForm: true,
       editQuoteId: action.payload,
-    })
+    }),
+    closeQuoteForms: (state) => ({
+      ...state,
+      shouldShownNewQuoteForm: false,
+      showShownEditQuoteForm: false,
+    }),
   },
 });
 
@@ -40,5 +45,6 @@ export const {
   clearQuotesAndRefetch,
   openNewQuoteForm,
   openEditQuoteForm,
+  closeQuoteForms,
 } = quotes.actions;
 export default quotes.reducer;
