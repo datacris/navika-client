@@ -62,7 +62,11 @@ const DetailQuote = ({ quoteRow }: DetailQuoteType) => {
 
   const formatTimestampToDate = (timestampInSeconds: any) => {
     const date = new Date(timestampInSeconds * 1);
-    const options = { day: "2-digit", month: "2-digit", year: "numeric" };
+    const options: Intl.DateTimeFormatOptions = {
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric",
+    };
     const formattedDate = date.toLocaleDateString("en-GB", options);
     return formattedDate;
   };
