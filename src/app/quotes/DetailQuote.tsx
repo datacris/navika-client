@@ -23,7 +23,7 @@ interface DetailQuoteType {
 const DetailQuote = ({ quoteRow }: DetailQuoteType) => {
   const dispatch = useDispatch<AppDispatch>();
   const { id, quote: quoteText, reference, author, book, created } = quoteRow;
-
+  const createdTransformation = new Date(created * 1000).toLocaleString();
   const [deleteQuote] = useMutation(DELETE_QUOTE);
 
   const handleDeleteQuote = () => {
@@ -60,6 +60,13 @@ const DetailQuote = ({ quoteRow }: DetailQuoteType) => {
     dispatch(openEditQuoteForm(id));
   };
 
+  const formatTimestampToDate = (timestampInSeconds: any) => {
+    const date = new Date(timestampInSeconds * 1);
+    const options = { day: "2-digit", month: "2-digit", year: "numeric" };
+    const formattedDate = date.toLocaleDateString("en-GB", options);
+    return formattedDate;
+  };
+
   return (
     <>
       <TableRow
@@ -71,7 +78,7 @@ const DetailQuote = ({ quoteRow }: DetailQuoteType) => {
         <TableCell align="right">{reference}</TableCell>
         <TableCell align="right">{author}</TableCell>
         <TableCell align="right">{book}</TableCell>
-        <TableCell align="right">{created}</TableCell>
+        <TableCell align="right">{formatTimestampToDate(created)}</TableCell>
         <TableCell align="right">
           <EditIcon onClick={handleEditQuote} />
           <DeleteIcon onClick={handleDeleteQuote} />
