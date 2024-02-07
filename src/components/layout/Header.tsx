@@ -21,6 +21,8 @@ import IconButton from "@mui/material/IconButton";
 import Badge from "@mui/material/Badge";
 import MenuIcon from "@mui/icons-material/Menu";
 import NotificationsIcon from "@mui/icons-material/Notifications";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import type { Menu } from "@/src/redux/features/menu-slice";
 import { Tooltip } from "@mui/material";
 import Profile from "../user-profile/Profile";
@@ -141,9 +143,17 @@ const Header = ({ isSidebarOpen, toggleSidebar, sidebarWidth }: any) => {
         <Tooltip arrow title="Profile" placement="bottom">
           <p
             className="mr-5 text-md text-light cursor-pointer"
-            onClick={() => dispatch(toogleUserProfileForm())}
+            onClick={() =>
+              userState.isUserLogued && dispatch(toogleUserProfileForm())
+            }
           >
             {userState.isUserLogued ? userState.name : "Guest"}
+            {userState.isUserLogued &&
+              (userState.showShownUserProfileForm ? (
+                <ExpandLessIcon />
+              ) : (
+                <ExpandMoreIcon />
+              ))}
           </p>
         </Tooltip>
         <Profile />

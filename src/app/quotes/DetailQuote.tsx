@@ -1,4 +1,4 @@
-import { TableCell, TableRow } from "@mui/material";
+import { TableCell, TableRow, Tooltip } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import React from "react";
@@ -84,8 +84,12 @@ const DetailQuote = ({ quoteRow }: DetailQuoteType) => {
         <TableCell align="right">{book}</TableCell>
         <TableCell align="right">{formatTimestampToDate(created)}</TableCell>
         <TableCell align="right">
-          <EditIcon onClick={handleEditQuote} />
-          <DeleteIcon onClick={handleDeleteQuote} />
+          <Tooltip arrow title="Edit" placement="bottom">
+            <EditIcon className="cursor-pointer" onClick={handleEditQuote} />
+          </Tooltip>
+          <Tooltip arrow title="Delete" placement="bottom">
+            <DeleteIcon className="cursor-pointer"onClick={handleDeleteQuote} />
+          </Tooltip>
         </TableCell>
       </TableRow>
     </>

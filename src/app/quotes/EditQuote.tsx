@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, CardContent, Typography, Fade } from "@mui/material";
+import { Box, CardContent, Typography, Fade, Tooltip } from "@mui/material";
 import * as Yup from "yup";
 import { Formik } from "formik";
 import InputFormik from "@/src/components/ui/InputFormik";
@@ -69,7 +69,12 @@ const EditQuote = () => {
             <Typography variant="h5" component="div">
               Edit Quote
             </Typography>
-            <ClearIcon onClick={() => dispatch(closeQuoteForms())} />
+            <Tooltip arrow title="Close" placement="bottom">
+              <ClearIcon
+                className="cursor-pointer"
+                onClick={() => dispatch(closeQuoteForms())}
+              />
+            </Tooltip>
           </div>
           <Formik
             validationSchema={validationSchema}
