@@ -5,6 +5,7 @@ export type User = {
   name: string;
   email: string;
   isUserLogued: boolean;
+  showShownUserProfileForm?: boolean;
 };
 
 const initialState: User = {
@@ -12,6 +13,7 @@ const initialState: User = {
   name: "Guest",
   email: "",
   isUserLogued: false,
+  showShownUserProfileForm: false,
 };
 
 export const user = createSlice({
@@ -20,8 +22,12 @@ export const user = createSlice({
   reducers: {
     setUser: (state, action) => (state = action.payload),
     removeUser: (state) => (state = initialState),
+    toogleUserProfileForm: (state) => ({
+      ...state,
+      showShownUserProfileForm: !state.showShownUserProfileForm,
+    }),
   },
 });
 
-export const { setUser, removeUser } = user.actions;
+export const { setUser, removeUser, toogleUserProfileForm } = user.actions;
 export default user.reducer;

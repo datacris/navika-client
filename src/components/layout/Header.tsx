@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useQuery } from "@apollo/client";
 import { useRouter } from "next/navigation";
 import { usePathname } from "next/navigation";
@@ -7,7 +7,11 @@ import { GET_USER } from "@/src/config/queries";
 import { UserCircleIcon } from "@heroicons/react/24/solid";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/src/redux/store";
-import { setUser, removeUser } from "@/src/redux/features/user-slice";
+import {
+  setUser,
+  removeUser,
+  toogleUserProfileForm,
+} from "@/src/redux/features/user-slice";
 import type { User } from "@/src/redux/features/user-slice";
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar";
 import { styled } from "@mui/material/styles";
@@ -18,13 +22,16 @@ import Badge from "@mui/material/Badge";
 import MenuIcon from "@mui/icons-material/Menu";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import type { Menu } from "@/src/redux/features/menu-slice";
+import { Tooltip } from "@mui/material";
+import Profile from "../user-profile/Profile";
 
 const Header = ({ isSidebarOpen, toggleSidebar, sidebarWidth }: any) => {
   const router = useRouter();
   const pathname = usePathname();
+  const dispatch = useDispatch<AppDispatch>();
+
   const { menu } = useSelector((state: RootState) => state.MenuItems);
   const userState = useSelector((state: RootState) => state.User);
-  const dispatch = useDispatch<AppDispatch>();
 
   const { data, loading, client, refetch } = useQuery(GET_USER);
 
@@ -33,12 +40,12 @@ const Header = ({ isSidebarOpen, toggleSidebar, sidebarWidth }: any) => {
   }
 
   // This use Effect refetch the UserInfo after the locaStorage updates
-  useEffect(()=>{
+  useEffect(() => {
     const refetchUser = async () => {
       await refetch();
     };
     refetchUser();
-  },[refetch])
+  }, [refetch]);
 
   useEffect(() => {
     // If the user is not logued in, it will be redirected to the login page
@@ -128,14 +135,26 @@ const Header = ({ isSidebarOpen, toggleSidebar, sidebarWidth }: any) => {
     }),
   }));
 
+  const loadUserNameAndProfile = () => {
+    return (
+      <>
+        <Tooltip arrow title="Profile" placement="bottom">
+          <p
+            className="mr-5 text-md text-light cursor-pointer"
+            onClick={() => dispatch(toogleUserProfileForm())}
+          >
+            {userState.isUserLogued ? userState.name : "Guest"}
+          </p>
+        </Tooltip>
+        <Profile />
+      </>
+    );
+  };
+
   return (
     <>
-      <AppBar className='' open={isSidebarOpen}>
-        <Toolbar
-          sx={{
-            pr: "24px", // keep right padding when drawer closed
-          }}
-        >
+      <AppBar className="" open={isSidebarOpen}>
+        <Toolbar sx={{ pr: "24px" }}>
           <IconButton
             edge="start"
             color="inherit"
@@ -163,9 +182,7 @@ const Header = ({ isSidebarOpen, toggleSidebar, sidebarWidth }: any) => {
             </Badge>
           </IconButton>
           <UserCircleIcon className="h-7 w-7 text-blue-800" />
-          <p className="mr-5 text-md text-light">
-            {userState.isUserLogued ? userState.name : "Guest"}
-          </p>
+          {loadUserNameAndProfile()}
           {userState.isUserLogued ? logOut() : LogIn()}
         </Toolbar>
       </AppBar>
