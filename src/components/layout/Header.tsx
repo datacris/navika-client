@@ -31,6 +31,7 @@ const Header = ({ isSidebarOpen, toggleSidebar, sidebarWidth }: any) => {
   const router = useRouter();
   const pathname = usePathname();
   const dispatch = useDispatch<AppDispatch>();
+  const [isUserSigningOut, setIsUserSigningOut] = useState(false);
 
   const { menu } = useSelector((state: RootState) => state.MenuItems);
   const userState = useSelector((state: RootState) => state.User);
@@ -50,10 +51,19 @@ const Header = ({ isSidebarOpen, toggleSidebar, sidebarWidth }: any) => {
   }, [refetch]);
 
   useEffect(() => {
-    // If the user is not logued in, it will be redirected to the login page
-    // if (!loading && !data?.getUser) {
-    //   router.push("/login");
-    // }
+    if (isUserSigningOut) {
+      localStorage.removeItem("token");
+      dispatch(removeUser());
+      setTimeout(() => {
+        dispatch(removeUser());
+      }, 2000);
+
+      client.clearStore();
+      router.push("/login");
+    }
+  }, [client, dispatch, isUserSigningOut, router]);
+
+  useEffect(() => {
     if (data?.getUser?.name) {
       const newLoguedUser: User = {
         id: data.getUser.id,
@@ -74,28 +84,6 @@ const Header = ({ isSidebarOpen, toggleSidebar, sidebarWidth }: any) => {
       item.paths.includes(pathname)
     );
     return currentMenuItem?.title;
-  };
-
-  const logOut = () => {
-    const handleLogOut = () => {
-      localStorage.removeItem("token");
-      dispatch(removeUser());
-      setTimeout(() => {
-        dispatch(removeUser());
-      }, 2000);
-
-      client.clearStore();
-      router.push("/login");
-    };
-    return (
-      <button
-        className="bg-blue-800 hover:bg-blue-900 w-full sm:w-auto font-bold uppercase text-xs rounded py-1 px-2 text-white shadow-md"
-        type="button"
-        onClick={() => handleLogOut()}
-      >
-        Log Out
-      </button>
-    );
   };
 
   const LogIn = () => {
@@ -156,7 +144,7 @@ const Header = ({ isSidebarOpen, toggleSidebar, sidebarWidth }: any) => {
               ))}
           </p>
         </Tooltip>
-        <Profile />
+        <Profile setIsUserSigningOut={setIsUserSigningOut} />
       </>
     );
   };
@@ -193,7 +181,7 @@ const Header = ({ isSidebarOpen, toggleSidebar, sidebarWidth }: any) => {
           </IconButton>
           <UserCircleIcon className="h-7 w-7 text-blue-800" />
           {loadUserNameAndProfile()}
-          {userState.isUserLogued ? logOut() : LogIn()}
+          {!userState.isUserLogued && LogIn()}
         </Toolbar>
       </AppBar>
     </>
