@@ -30,7 +30,7 @@ const EditQuote = () => {
 
   const [updateQuote] = useMutation(UPDATE_QUOTE);
 
-  if (loading) return "Cargando...";
+  if (loading) return "Loading...";
   const { getQuote } = data;
 
   const validationSchema = Yup.object({
