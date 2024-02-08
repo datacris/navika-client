@@ -7,7 +7,7 @@ import Typography from "@mui/material/Typography";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/src/redux/store";
 import { toogleUserProfileForm } from "@/src/redux/features/user-slice";
-import { Button } from "@mui/material";
+import { Avatar, Button } from "@mui/material";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 
 interface ProfileProps {
@@ -38,22 +38,32 @@ const Profile = ({ setIsUserSigningOut }: ProfileProps) => {
         }}
       >
         <Fade in={isOpen}>
-          <div className="flex justify-end pt-14 pr-8 border-none">
-            <div className="w-30 p-3 bg-blue-100 rounded-md shadow-2xl">
-              <Typography id="modal-modal-title" variant="h6" component="h2">
-                Text in a modal
-              </Typography>
-              <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                Duis mollis, est non commodo luctus,
-              </Typography>
-              <Button
-                className="bg-blue-500"
-                onClick={() => setIsUserSigningOut(true)}
-                endIcon={<ExitToAppIcon />}
-              >
-                Sign Out
-              </Button>
+          <div className="flex w-full justify-end pt-14 pr-8 border-none">
+            <div className="relative rounded-lg overflow-hidden bg-gray-100 w-80">
+              <div className="bg-blue-100 p-4 h-20"></div>
+              <div className="absolute top-1/5 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                <Avatar
+                  className="w-16 h-16 rounded-full border-2 border-white"
+                  alt="Remy Sharp"
+                  src="https://img.freepik.com/free-psd/3d-illustration-person-with-sunglasses_23-2149436188.jpg?w=740&t=st=1707402731~exp=1707403331~hmac=595461489c31a9ac54e00f14eed83b202eb2bfb7b8251d6086fd64d9c589bada"
+                  sx={{ width: 56, height: 56 }}
+                />
+              </div>
+              <div className="p-4 mt-4 h-80">
+                <Typography id="modal-modal-title" variant="h6" component="h2">
+                  Text in a modal
+                </Typography>
+                <Button
+                  className="bg-blue-100"
+                  onClick={() => setIsUserSigningOut(true)}
+                  endIcon={<ExitToAppIcon />}
+                >
+                  Sign Out
+                </Button>
+              </div>
             </div>
+
+          
           </div>
         </Fade>
       </Modal>
