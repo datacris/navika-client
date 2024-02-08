@@ -9,6 +9,7 @@ import { AppDispatch, RootState } from "@/src/redux/store";
 import { toogleUserProfileForm } from "@/src/redux/features/user-slice";
 import { Avatar, Button } from "@mui/material";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
+import Divider from "@mui/material/Divider";
 
 interface ProfileProps {
   setIsUserSigningOut: Dispatch<SetStateAction<boolean>>;
@@ -39,7 +40,7 @@ const Profile = ({ setIsUserSigningOut }: ProfileProps) => {
       >
         <Fade in={isOpen}>
           <div className="flex w-full justify-end pt-14 pr-8 border-none">
-            <div className="relative rounded-lg overflow-hidden bg-gray-100 w-80">
+            <div className="relative rounded-lg overflow-hidden bg-gray-100 w-80 border-2 border-gray-200 shadow-2xl">
               <div className="bg-blue-100 p-4 h-20"></div>
               <div className="absolute top-1/5 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
                 <Avatar
@@ -49,21 +50,24 @@ const Profile = ({ setIsUserSigningOut }: ProfileProps) => {
                   sx={{ width: 56, height: 56 }}
                 />
               </div>
-              <div className="p-4 mt-4 h-80">
-                <Typography id="modal-modal-title" variant="h6" component="h2">
-                  Text in a modal
+              <div className="flex flex-col items-center justify-center h-80 pt-10">
+                <Typography className="font-bold" variant="h6">
+                  {userState.name}
                 </Typography>
-                <Button
-                  className="bg-blue-100"
-                  onClick={() => setIsUserSigningOut(true)}
-                  endIcon={<ExitToAppIcon />}
-                >
-                  Sign Out
-                </Button>
+                <Typography variant="subtitle1">{userState.email}</Typography>
+                <Divider className="my-4" orientation="horizontal" flexItem />
+
+                <div className="mt-auto">
+                  <Button
+                    className="bg-blue-100 w-full"
+                    onClick={() => setIsUserSigningOut(true)}
+                    endIcon={<ExitToAppIcon />}
+                  >
+                    Sign Out
+                  </Button>
+                </div>
               </div>
             </div>
-
-          
           </div>
         </Fade>
       </Modal>
