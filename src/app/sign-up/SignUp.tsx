@@ -25,6 +25,9 @@ export default function SignUp() {
   const [createNewUser] = useMutation(CREATE_NEW_USER);
   const router = useRouter();
 
+  const BACKGROUND_IMAGE =
+    "https://images.unsplash.com/photo-1660721858662-9ad9f37447f7?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
+
   const formik = useFormik({
     initialValues: {
       name: "",
@@ -78,7 +81,7 @@ export default function SignUp() {
         sm={4}
         md={7}
         sx={{
-          backgroundImage: "url(https://source.unsplash.com/random?wallpapers)",
+          backgroundImage:`url(${BACKGROUND_IMAGE})`,
           backgroundRepeat: "no-repeat",
           backgroundColor: (t) =>
             t.palette.mode === "light"

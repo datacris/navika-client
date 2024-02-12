@@ -50,16 +50,17 @@ const Profile = ({ setIsUserSigningOut }: ProfileProps) => {
                   sx={{ width: 56, height: 56 }}
                 />
               </div>
-              <div className="flex flex-col items-center justify-center h-80 pt-10">
+              <div className="flex flex-col items-center justify-center h-50 pt-10">
                 <Typography className="font-bold" variant="h6">
                   {userState.name}
                 </Typography>
                 <Typography variant="subtitle1">{userState.email}</Typography>
                 <Divider className="my-4" orientation="horizontal" flexItem />
 
-                <div className="mt-auto">
+                <div className="mt-auto pb-4">
                   <Button
-                    className="bg-blue-100 w-full"
+                    className="bg-blue-700"
+                    variant="contained"
                     onClick={() => setIsUserSigningOut(true)}
                     endIcon={<ExitToAppIcon />}
                   >
