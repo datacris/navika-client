@@ -1,12 +1,15 @@
-"use client";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import Layout from "../components/layout/Layout";
-import { ApolloProvider } from "@apollo/client";
-import client from "../config/apollo";
-import ReduxProvider from "@/src/redux/provider";
+import { Metadata } from "next";
+import MainContainer from "../components/layout/MainContainer";
+import AcUnitIcon from "@mui/icons-material/AcUnit";
 
 const inter = Inter({ subsets: ["latin"] });
+
+export const metadata: Metadata = {
+  title: "Navika",
+  description: "Navka app",
+};
 
 export default function RootLayout({
   children,
@@ -16,11 +19,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className} suppressHydrationWarning={true}>
-        <ApolloProvider client={client}>
-          <ReduxProvider>
-            <Layout appContent={children} />
-          </ReduxProvider>
-        </ApolloProvider>
+        <MainContainer appContent={children} />
       </body>
     </html>
   );

@@ -1,13 +1,8 @@
-import { Metadata } from 'next'
- 
-export const metadata: Metadata = {
-  title: 'navika',
-  description: 'Navka app',
-}
+// Landing page has been set as a Home.tsx
 export default function Home() {
   return (
-    <main >
-    
-    </main>
+    <>
+      <main></main>
+    </>
   );
 }
