@@ -12,10 +12,12 @@ interface SidebarProps {
   }>;
   description: string;
   title: string;
+  description2: string;
+  title2: string;
 }
 
 export default function Sidebar(props: SidebarProps) {
-  const { archives, description, title } = props;
+  const { archives, description, title, title2, description2 } = props;
 
   return (
     <Grid item xs={12} md={4}>
@@ -24,6 +26,10 @@ export default function Sidebar(props: SidebarProps) {
           {title}
         </Typography>
         <Typography>{description}</Typography>
+        <Typography className="pt-2" variant="h6" gutterBottom>
+          {title2}
+        </Typography>
+        <Typography>{description2}</Typography>
       </Paper>
       <Typography variant="h6" gutterBottom sx={{ mt: 3 }}>
         Archives
