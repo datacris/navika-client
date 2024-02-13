@@ -21,8 +21,11 @@ export default function FeaturedPost(props: FeaturedPostProps) {
 
   return (
     <Grid item xs={12} md={6}>
-      <CardActionArea component="a" href="#">
-        <Card sx={{ display: "flex" }}>
+      <CardActionArea>
+        <Card
+          className="transition delay-150 scale-95 hover:bg-gray-100 hover:shadow-lg hover:scale-100 cursor-auto duration-300"
+          sx={{ display: "flex" }}
+        >
           <CardContent sx={{ flex: 1 }}>
             <Typography component="h2" variant="h5">
               {post.title}
