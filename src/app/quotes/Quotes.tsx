@@ -1,6 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import ListQuotes from "./ListQuotes";
+import DayQuote from "./DayQuote";
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
@@ -68,6 +69,9 @@ const Quotes = () => {
   return (
     <div>
       <Grid container spacing={2}>
+        <Grid item xs={12}>
+          <DayQuote />
+        </Grid>
         <Grid item xs={4}>
           <div className="sticky top-20">
             <Box sx={{ minWidth: 275 }}>

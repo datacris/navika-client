@@ -1,6 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
-import { useQuery } from "@apollo/client";
+import React from "react";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -8,24 +7,12 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import { GET_QUOTES } from "@/src/config/queries";
 import type { Quote } from "./Quotes";
 import DetailQuote from "./DetailQuote";
-import { useSelector } from "react-redux";
-import { RootState } from "@/src/redux/store";
+import useQuote from './hooks/use-quote'
 
 const ListQuotes = () => {
-  
-  const { shouldRefetchQuotes } = useSelector((state: RootState) => state.Quotes);
-
-  const { data, loading, client, refetch } = useQuery(GET_QUOTES);
-
-  useEffect(() => {
-    const refetchQuotes = async () => {
-      await refetch();
-    };
-    refetchQuotes();
-  }, [shouldRefetchQuotes, refetch]);
+  const { quotes } = useQuote();
 
   return (
     <div>
@@ -42,8 +29,8 @@ const ListQuotes = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {data?.getQuotes.length > 0 ? (
-              data?.getQuotes.map((item: Quote) => (
+            {quotes.length > 0 ? (
+              quotes.map((item: Quote) => (
                 <DetailQuote key={item.id} quoteRow={item} />
               ))
             ) : (

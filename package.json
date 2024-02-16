@@ -17,6 +17,7 @@
     "@material-ui/icons": "^4.11.3",
     "@mui/icons-material": "^5.15.6",
     "@mui/material": "^5.15.6",
+    "@next/font": "^14.1.0",
     "@reduxjs/toolkit": "^1.9.7",
     "apollo-link-context": "^1.0.20",
     "formik": "^2.4.5",
