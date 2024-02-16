@@ -22,7 +22,7 @@ export default function Main(props: any) {
         },
       }}
     >
-      <Typography variant="h6" gutterBottom>
+      <Typography variant="h3" gutterBottom>
         {title}
       </Typography>
       <Divider />

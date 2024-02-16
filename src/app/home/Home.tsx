@@ -9,29 +9,29 @@ import Sidebar from "./Sidebar";
 
 const posts = [
   {
+    title: "Quotes admin section",
+    description:
+      "Quotes section includes a CRUD implementation for introducing database interaction.",
+  },
+  {
+    title: "Authentication",
+    description:
+      "Navika uses JWT for authentication. Some features are blocked, but will be available once a user is successfully loged in",
+  },
+  {
     title: "Experiments",
     description:
-      "Explore a variety of experiments and discover new insights. From cutting-edge technologies to scientific breakthroughs, Navika brings the latest experiments to your fingertips.",
-  },
-  {
-    title: "Todo List",
-    description:
-      "Stay organized with Navika's Todo List feature. Plan your day, set priorities, and accomplish tasks efficiently. Never miss a deadline again!",
-  },
-  {
-    title: "Profile Management",
-    description:
-      "Manage your profile seamlessly with Navika. Update your information, change your preferences, and personalize your Navika experience.",
+      "Experiment section for include new features and test new features before to be introduced into Navika",
   },
 ];
 
 const mainFeaturedPost = {
-  title: "Title of a longer featured blog post",
+  title: "Navika App",
   description:
-    "Multiple lines of text that form the lede, informing new readers quickly and efficiently about what's most interesting in this post's contents.",
+    "Navika is a web app that serves as a portfolio, hosting experiments, and showcasing technical skills as a software developer.",
   image: "https://source.unsplash.com/random?wallpapers",
-  imageText: "main image description",
-  linkText: "Continue reading…",
+  imageText: "navika description",
+  linkText: "",
 };
 
 const featuredPosts = [
@@ -97,19 +97,6 @@ const sidebar = {
   title2: "What Sets Navika Apart?",
   description2:
     "Front-End Mastery: Navika serves as my portfolio, showcasing my skills as a front-end developer. Each feature is a testament to my commitment to creating seamless, visually appealing, and user-friendly interfaces. Innovative Features: From eye-catching design elements to responsive layouts, Navika incorporates cutting-edge features that highlight my proficiency in modern web development.",
-  archives: [
-    { title: "March 2020", url: "#" },
-    { title: "February 2020", url: "#" },
-    { title: "January 2020", url: "#" },
-    { title: "November 1999", url: "#" },
-    { title: "October 1999", url: "#" },
-    { title: "September 1999", url: "#" },
-    { title: "August 1999", url: "#" },
-    { title: "July 1999", url: "#" },
-    { title: "June 1999", url: "#" },
-    { title: "May 1999", url: "#" },
-    { title: "April 1999", url: "#" },
-  ],
 };
 
 const Home = () => {
@@ -129,7 +116,6 @@ const Home = () => {
             description={sidebar.description}
             title2={sidebar.title2}
             description2={sidebar.description2}
-            archives={sidebar.archives}
           />
         </Grid>
       </main>

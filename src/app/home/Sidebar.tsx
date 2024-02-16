@@ -6,7 +6,7 @@ import Typography from "@mui/material/Typography";
 import Link from "@mui/material/Link";
 
 interface SidebarProps {
-  archives: ReadonlyArray<{
+  archives?: ReadonlyArray<{
     url: string;
     title: string;
   }>;
@@ -17,7 +17,7 @@ interface SidebarProps {
 }
 
 export default function Sidebar(props: SidebarProps) {
-  const { archives, description, title, title2, description2 } = props;
+  const { description, title, title2, description2 } = props;
 
   return (
     <Grid item xs={12} md={4}>
@@ -31,22 +31,6 @@ export default function Sidebar(props: SidebarProps) {
         </Typography>
         <Typography>{description2}</Typography>
       </Paper>
-      <Typography variant="h6" gutterBottom sx={{ mt: 3 }}>
-        Archives
-      </Typography>
-      {archives.map((archive) => (
-        <Link
-          display="block"
-          variant="body1"
-          href={archive.url}
-          key={archive.title}
-        >
-          {archive.title}
-        </Link>
-      ))}
-      <Typography variant="h6" gutterBottom sx={{ mt: 3 }}>
-        Social
-      </Typography>
     </Grid>
   );
 }
